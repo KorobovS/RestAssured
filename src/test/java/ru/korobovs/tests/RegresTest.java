@@ -7,10 +7,11 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.Optional;
+import java.util.*;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.lessThan;
 
 public class RegresTest {
 
@@ -29,9 +30,17 @@ public class RegresTest {
                 .extract().response();
 
         JsonPath data = response.jsonPath();
+        List<Object> usersList = data.getList("data");
+        HashMap<String, Object> user0 = (HashMap<String, Object>) data.getList("data").get(0);
 
         Assert.assertEquals(data.getInt("page"), 2);
         Assert.assertEquals(Optional.ofNullable(data.get("page").toString()).get(), "2");
+        Assert.assertEquals(usersList.size(), 6);
+        Assert.assertEquals(user0.get("id"), 7);
+        Assert.assertEquals(user0.get("email"), "michael.lawson@reqres.in");
+        Assert.assertEquals(user0.get("first_name"), "Michael");
+        Assert.assertEquals(user0.get("last_name"), "Lawson");
+        Assert.assertEquals(user0.get("avatar"), "https://reqres.in/img/faces/7-image.jpg");
     }
 
     @Test
