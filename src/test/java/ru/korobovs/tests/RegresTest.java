@@ -30,12 +30,14 @@ public class RegresTest {
                 .extract().response();
 
         JsonPath data = response.jsonPath();
+        List<Integer> listUserId = data.getList("id");
         List<Object> usersList = data.getList("data");
         HashMap<String, Object> user0 = (HashMap<String, Object>) data.getList("data").get(0);
 
         Assert.assertEquals(data.getInt("page"), 2);
         Assert.assertEquals(Optional.ofNullable(data.get("page").toString()).get(), "2");
         Assert.assertEquals(usersList.size(), 6);
+        Assert.assertEquals(List.of(7, 8, 9, 10, 11, 12), listUserId);
         Assert.assertEquals(user0.get("id"), 7);
         Assert.assertEquals(user0.get("email"), "michael.lawson@reqres.in");
         Assert.assertEquals(user0.get("first_name"), "Michael");
