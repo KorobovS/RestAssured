@@ -1,11 +1,11 @@
 package ru.korobovs.tests;
 
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.korobovs.base.Specifications;
 
 import java.util.*;
 
@@ -15,17 +15,18 @@ import static org.hamcrest.Matchers.lessThan;
 
 public class RegresTest {
 
-    private static final String URL = "https://reqres.in";
     private static final String USER_RESOURCE = "fuchsia rose";
+
+    Specifications specifications = new Specifications();
 
     @Test
     public void testListUsers() {
 
+        specifications.installSpecifications();
+
         Response response = given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .get(URL + "/api/users?page=2")
-                .then().log().all()
+                .get("/api/users?page=2")
+                .then()
                 .statusCode(200)
                 .extract().response();
 
@@ -48,11 +49,11 @@ public class RegresTest {
     @Test
     public void testSingleUser() {
 
+        specifications.installSpecifications();
+
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .get(URL + "/api/users/2")
-                .then().log().all()
+                .get("/api/users/2")
+                .then()
                 .statusCode(200)
                 .body("data.id", equalTo(2))
                 .body("data.email", equalTo("janet.weaver@reqres.in"));
@@ -61,11 +62,11 @@ public class RegresTest {
     @Test
     public void testSingleUserNotFound() {
 
+        specifications.installSpecifications();
+
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .get(URL + "/api/users/23")
-                .then().log().all()
+                .get("/api/users/23")
+                .then()
                 .statusCode(404)
                 .body(equalTo("{}"))
                 .extract().response();
@@ -74,10 +75,10 @@ public class RegresTest {
     @Test
     public void testListResource() {
 
+        specifications.installSpecifications();
+
         Response response = given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .get(URL + "/api/unknown")
+                .get("/api/unknown")
                 .then().log().all()
                 .statusCode(200)
                 .extract().response();
@@ -88,11 +89,11 @@ public class RegresTest {
     @Test
     public void testSingleResource() {
 
+        specifications.installSpecifications();
+
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .get(URL + "/api/unknown/2")
-                .then().log().all()
+                .get("/api/unknown/2")
+                .then()
                 .statusCode(200)
                 .body("data.id", equalTo(2))
                 .body("data.name", equalTo(USER_RESOURCE));
@@ -101,11 +102,11 @@ public class RegresTest {
     @Test
     public void testSingleResourceNotFound() {
 
+        specifications.installSpecifications();
+
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .get(URL + "/api/unknown/23")
-                .then().log().all()
+                .get("/api/unknown/23")
+                .then()
                 .statusCode(404)
                 .body(equalTo("{}"))
                 .extract().response();
@@ -113,6 +114,8 @@ public class RegresTest {
 
     @Test
     public void testCreate() {
+
+        specifications.installSpecifications();
 
         String body = """
                 {
@@ -122,11 +125,9 @@ public class RegresTest {
                 """;
 
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
                 .body(body)
-                .post(URL + "/api/users")
-                .then().log().all()
+                .post("/api/users")
+                .then()
                 .statusCode(201)
                 .body("name", equalTo("morpheus"))
                 .body("job", equalTo("leader"));
@@ -134,6 +135,8 @@ public class RegresTest {
 
     @Test
     public void testUpdatePut() {
+
+        specifications.installSpecifications();
 
         String body = """
                 {
@@ -143,11 +146,9 @@ public class RegresTest {
                 """;
 
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
                 .body(body)
-                .put(URL + "/api/users/2")
-                .then().log().all()
+                .put("/api/users/2")
+                .then()
                 .statusCode(200)
                 .body("name", equalTo("morpheus"))
                 .body("job", equalTo("zion resident"));
@@ -155,6 +156,8 @@ public class RegresTest {
 
     @Test
     public void testUpdatePatch() {
+
+        specifications.installSpecifications();
 
         String body = """
                 {
@@ -164,11 +167,9 @@ public class RegresTest {
                 """;
 
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
                 .body(body)
-                .patch(URL + "/api/users/2")
-                .then().log().all()
+                .patch("/api/users/2")
+                .then()
                 .statusCode(200)
                 .body("name", equalTo("Morpheus"))
                 .body("job", equalTo("Zion Resident"));
@@ -177,11 +178,11 @@ public class RegresTest {
     @Test
     public void testDelete() {
 
+        specifications.installSpecifications();
+
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .delete(URL + "/api/users/2")
-                .then().log().all()
+                .delete("/api/users/2")
+                .then()
                 .statusCode(204)
                 .body(equalTo(""))
                 .extract().response();
@@ -189,6 +190,8 @@ public class RegresTest {
 
     @Test
     public void testRegisterSuccessful() {
+
+        specifications.installSpecifications();
 
         String body = """
                 {
@@ -198,11 +201,9 @@ public class RegresTest {
                 """;
 
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
                 .body(body)
-                .post(URL + "/api/register")
-                .then().log().all()
+                .post("/api/register")
+                .then()
                 .statusCode(200)
                 .body("id", equalTo(4))
                 .body("token", equalTo("QpwL5tke4Pnpja7X4"));
@@ -211,6 +212,8 @@ public class RegresTest {
     @Test
     public void testRegisterUnsuccessful() {
 
+        specifications.installSpecifications();
+
         String body = """
                 {
                 "email":"sydney@file"
@@ -218,17 +221,17 @@ public class RegresTest {
                 """;
 
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
                 .body(body)
-                .post(URL + "/api/register")
-                .then().log().all()
+                .post("/api/register")
+                .then()
                 .statusCode(400)
                 .body("error", equalTo("Missing password"));
     }
 
     @Test
     public void testLoginSuccessful() {
+
+        specifications.installSpecifications();
 
         String body = """
                 {
@@ -238,17 +241,17 @@ public class RegresTest {
                 """;
 
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
                 .body(body)
-                .post(URL + "/api/login")
-                .then().log().all()
+                .post("/api/login")
+                .then()
                 .statusCode(200)
                 .body("token", equalTo("QpwL5tke4Pnpja7X4"));
     }
 
     @Test
     public void testLoginUnsuccessful() {
+
+        specifications.installSpecifications();
 
         String body = """
                 {
@@ -257,10 +260,8 @@ public class RegresTest {
                 """;
 
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
                 .body(body)
-                .post(URL + "/api/login")
+                .post("/api/login")
                 .then().log().all()
                 .statusCode(400)
                 .body("error", equalTo("Missing password"));
@@ -269,11 +270,11 @@ public class RegresTest {
     @Test
     public void testDelayedResponse() {
 
+        specifications.installSpecifications();
+
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .get(URL + "/api/users?delay=3")
-                .then().log().all()
+                .get("/api/users?delay=3")
+                .then()
                 .statusCode(200)
                 .time(lessThan(6000L));
     }

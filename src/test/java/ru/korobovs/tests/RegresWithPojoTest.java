@@ -1,11 +1,11 @@
 package ru.korobovs.tests;
 
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.korobovs.base.Specifications;
 import ru.korobovs.pojo.*;
 
 import java.util.List;
@@ -17,21 +17,22 @@ import static org.hamcrest.Matchers.lessThan;
 
 public class RegresWithPojoTest {
 
-    private static final String URL = "https://reqres.in";
     private static final String NAME = "morpheus";
     private static final String PATCH_NAME = "Morpheus";
     private static final String JOB = "leader";
     private static final String PUT_JOB = "zion resident";
     private static final String PATCH_JOB = "Zion Resident";
 
+    Specifications specifications = new Specifications();
+
     @Test
     public void testListUsers() {
 
+        specifications.installSpecifications();
+
         Response response = given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .get(URL + "/api/users?page=2")
-                .then().log().all()
+                .get("/api/users?page=2")
+                .then()
                 .statusCode(200)
                 .extract().response();
 
@@ -50,11 +51,11 @@ public class RegresWithPojoTest {
     @Test
     public void testSingleUser() {
 
+        specifications.installSpecifications();
+
         UserPojo user = given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .get(URL + "/api/users/2")
-                .then().log().all()
+                .get("/api/users/2")
+                .then()
                 .statusCode(200)
                 .extract().body().jsonPath().getObject("data", UserPojo.class);
 
@@ -68,11 +69,11 @@ public class RegresWithPojoTest {
     @Test
     public void testSingleUserNotFound() {
 
+        specifications.installSpecifications();
+
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .get(URL + "/api/users/23")
-                .then().log().all()
+                .get("/api/users/23")
+                .then()
                 .statusCode(404)
                 .body(equalTo("{}"))
                 .extract().response();
@@ -81,11 +82,11 @@ public class RegresWithPojoTest {
     @Test
     public void testListResource() {
 
+        specifications.installSpecifications();
+
         Response response = given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .get(URL + "/api/unknown")
-                .then().log().all()
+                .get("/api/unknown")
+                .then()
                 .statusCode(200)
                 .extract().response();
 
@@ -102,11 +103,11 @@ public class RegresWithPojoTest {
     @Test
     public void testSingleResource() {
 
+        specifications.installSpecifications();
+
         ResourcePojo resource = given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .get(URL + "/api/unknown/2")
-                .then().log().all()
+                .get("/api/unknown/2")
+                .then()
                 .statusCode(200)
                 .extract().body().jsonPath().getObject("data", ResourcePojo.class);
 
@@ -120,11 +121,11 @@ public class RegresWithPojoTest {
     @Test
     public void testSingleResourceNotFound() {
 
+        specifications.installSpecifications();
+
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .get(URL + "/api/unknown/23")
-                .then().log().all()
+                .get("/api/unknown/23")
+                .then()
                 .statusCode(404)
                 .body(equalTo("{}"))
                 .extract().response();
@@ -133,14 +134,14 @@ public class RegresWithPojoTest {
     @Test
     public void testCreate() {
 
+        specifications.installSpecifications();
+
         UserBodyPojo bodyUser = new UserBodyPojo(NAME, JOB);
 
         UserNewPojo user = given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
                 .body(bodyUser)
-                .post(URL + "/api/users")
-                .then().log().all()
+                .post("/api/users")
+                .then()
                 .statusCode(201)
                 .extract().as(UserNewPojo.class);
 
@@ -151,14 +152,14 @@ public class RegresWithPojoTest {
     @Test
     public void testUpdatePut() {
 
+        specifications.installSpecifications();
+
         UserBodyPojo userBody = new UserBodyPojo(NAME, PUT_JOB);
 
         UserNewPojo user = given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
                 .body(userBody)
-                .put(URL + "/api/users/2")
-                .then().log().all()
+                .put("/api/users/2")
+                .then()
                 .statusCode(200)
                 .extract().as(UserNewPojo.class);
 
@@ -169,14 +170,14 @@ public class RegresWithPojoTest {
     @Test
     public void testUpdatePatch() {
 
+        specifications.installSpecifications();
+
         UserBodyPojo userBody = new UserBodyPojo(PATCH_NAME, PATCH_JOB);
 
         UserNewPojo user = RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
                 .body(userBody)
-                .patch(URL + "/api/users/2")
-                .then().log().all()
+                .patch("/api/users/2")
+                .then()
                 .statusCode(200)
                 .extract().as(UserNewPojo.class);
 
@@ -187,11 +188,11 @@ public class RegresWithPojoTest {
     @Test
     public void testDelete() {
 
+        specifications.installSpecifications();
+
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .delete(URL + "/api/users/2")
-                .then().log().all()
+                .delete("/api/users/2")
+                .then()
                 .statusCode(204)
                 .body(equalTo(""))
                 .extract().response();
@@ -200,14 +201,14 @@ public class RegresWithPojoTest {
     @Test
     public void testRegisterSuccessful() {
 
+        specifications.installSpecifications();
+
         RegisterBodyPojo registerBody = new RegisterBodyPojo("eve.holt@reqres.in", "pistol");
 
         RegisterPojo register = given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
                 .body(registerBody)
-                .post(URL + "/api/register")
-                .then().log().all()
+                .post("/api/register")
+                .then()
                 .statusCode(200)
                 .extract().body().jsonPath().getObject(rootPath, RegisterPojo.class);
 
@@ -218,14 +219,14 @@ public class RegresWithPojoTest {
     @Test
     public void testRegisterUnsuccessful() {
 
+        specifications.installSpecifications();
+
         RegisterBodyPojo registerBody = new RegisterBodyPojo("sydney@file", null);
 
         ErrorPojo error = given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
                 .body(registerBody)
-                .post(URL + "/api/register")
-                .then().log().all()
+                .post("/api/register")
+                .then()
                 .statusCode(400)
                 .extract().body().jsonPath().getObject(rootPath, ErrorPojo.class);
 
@@ -235,14 +236,14 @@ public class RegresWithPojoTest {
     @Test
     public void testLoginSuccessful() {
 
+        specifications.installSpecifications();
+
         LoginPojo login = new LoginPojo("eve.holt@reqres.in", "cityslicka");
 
         TokenPojo token = given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
                 .body(login)
-                .post(URL + "/api/login")
-                .then().log().all()
+                .post("/api/login")
+                .then()
                 .statusCode(200)
                 .extract().body().jsonPath().getObject(rootPath, TokenPojo.class);
 
@@ -252,14 +253,14 @@ public class RegresWithPojoTest {
     @Test
     public void testLoginUnsuccessful() {
 
+        specifications.installSpecifications();
+
         LoginPojo login = new LoginPojo("peter@klaven", null);
 
         ErrorPojo error = given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
                 .body(login)
-                .post(URL + "/api/login")
-                .then().log().all()
+                .post("/api/login")
+                .then()
                 .statusCode(400)
                 .extract().body().jsonPath().getObject(rootPath, ErrorPojo.class);
 
@@ -269,11 +270,11 @@ public class RegresWithPojoTest {
     @Test
     public void testDelayedResponse() {
 
+        specifications.installSpecifications();
+
         RestAssured.given()
-                .when().log().all()
-                .contentType(ContentType.JSON)
-                .get(URL + "/api/users?delay=3")
-                .then().log().all()
+                .get("/api/users?delay=3")
+                .then()
                 .statusCode(200)
                 .time(lessThan(6000L));
     }
