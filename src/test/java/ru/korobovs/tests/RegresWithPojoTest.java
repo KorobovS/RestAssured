@@ -18,7 +18,6 @@ import static org.hamcrest.Matchers.lessThan;
 public class RegresWithPojoTest {
 
     private static final String URL = "https://reqres.in";
-    private static final String USER_RESOURCE = "fuchsia rose";
     private static final String NAME = "morpheus";
     private static final String PATCH_NAME = "Morpheus";
     private static final String JOB = "leader";

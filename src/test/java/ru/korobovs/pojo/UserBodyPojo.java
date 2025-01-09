@@ -8,9 +8,6 @@ public class UserBodyPojo {
     private String name;
     private String job;
 
-    public UserBodyPojo() {
-    }
-
     public UserBodyPojo(String name, String job) {
         this.name = name;
         this.job = job;
