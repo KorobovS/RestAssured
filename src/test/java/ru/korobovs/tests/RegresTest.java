@@ -30,7 +30,7 @@ public class RegresTest {
                 .extract().response();
 
         JsonPath data = response.jsonPath();
-        List<Integer> listUserId = data.getList("id");
+        List<Integer> listUserId = data.getList("data.id");
         List<Object> usersList = data.getList("data");
         HashMap<String, Object> user0 = (HashMap<String, Object>) data.getList("data").get(0);
 

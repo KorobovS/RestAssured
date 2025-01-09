@@ -135,14 +135,14 @@ public class RegresWithPojoTest {
 
         UserBodyPojo bodyUser = new UserBodyPojo(NAME, JOB);
 
-        UserBodyPojo user = given()
+        UserNewPojo user = given()
                 .when().log().all()
                 .contentType(ContentType.JSON)
                 .body(bodyUser)
                 .post(URL + "/api/users")
                 .then().log().all()
                 .statusCode(201)
-                .extract().as(UserBodyPojo.class);
+                .extract().as(UserNewPojo.class);
 
         Assert.assertEquals(user.getName(), NAME);
         Assert.assertEquals(user.getJob(), JOB);
