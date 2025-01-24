@@ -1,10 +1,13 @@
 package ru.korobovs.tests;
 
+import io.qameta.allure.Epic;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import ru.korobovs.base.BaseTest;
 import ru.korobovs.base.Specifications;
 
 import java.util.*;
@@ -13,7 +16,9 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.lessThan;
 
-public class RegresTest {
+@Epic("API tests")
+@Ignore
+public class ApiTest {
 
     private static final String USER_RESOURCE = "fuchsia rose";
 

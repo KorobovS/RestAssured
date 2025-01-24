@@ -1,9 +1,11 @@
 package ru.korobovs.tests;
 
+import io.qameta.allure.Epic;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import ru.korobovs.base.BaseTest;
 import ru.korobovs.pojo.*;
@@ -15,7 +17,9 @@ import static io.restassured.RestAssured.rootPath;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.lessThan;
 
-public class RegresWithPojoTest extends BaseTest {
+@Epic("API test with Pojo")
+@Ignore
+public class ApiWithPojoTest extends BaseTest {
 
     private static final int USER_ID = 2;
     private static final int NOT_USER_ID = 23;

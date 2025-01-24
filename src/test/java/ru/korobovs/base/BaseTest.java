@@ -1,5 +1,7 @@
 package ru.korobovs.base;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import org.testng.ITestResult;
@@ -20,14 +22,17 @@ public abstract class BaseTest {
     }
 
     @BeforeMethod
+    @Step("Выполнение beforeMethod")
     protected void beforeMethod(Method method) {
         ProjectUtils.logf("Запускается %s.%s", this.getClass().getName(), method.getName());
-
+        Allure.step(String.format("Запускается %s.%s", this.getClass().getName(), method.getName()));
         spec();
+        Allure.step("Файл спецификаций подгружен");
     }
 
     @AfterMethod
     protected void afterMethod(Method method, ITestResult testResult) {
         ProjectUtils.logf("Время выполнения %.3f сек", (testResult.getEndMillis() - testResult.getStartMillis()) / 1000.0);
+        Allure.step(String.format("Время выполнения %.3f сек", (testResult.getEndMillis() - testResult.getStartMillis()) / 1000.0));
     }
 }
