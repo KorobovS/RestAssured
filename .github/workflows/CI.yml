@@ -26,7 +26,7 @@ jobs:
         run: mvn test
         env:
           CI_RUN: true
-
+          
       - name: Load test report history
         uses: actions/checkout@v3
         if: always()
