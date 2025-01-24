@@ -57,25 +57,30 @@ public class ApiWithAllureTest extends BaseTest {
         Assert.assertEquals(usersList.get(0).getAvatar(), "https://reqres.in/img/faces/7-image.jpg");
     }
 
-//    @Test
-//    @Epic("Тесты с Users")
-//    @Feature("Получение одного User")
-//    @Story("Положительные")
-//    public void testSingleUser() {
-//
-//        UserPojo user = given(requestSpec.pathParam("id", USER_ID), responseSpec)
-//                .get("/api/users/{id}")
-//                .then()
-//                .statusCode(200)
-//                .extract().body().jsonPath().getObject("data", UserPojo.class);
-//
-//        Assert.assertEquals(user.getId(), USER_ID);
-//        Assert.assertEquals(user.getEmail(), "janet.weaver@reqres.in");
-//        Assert.assertEquals(user.getFirst_name(), "Janet");
-//        Assert.assertEquals(user.getLast_name(), "Weaver");
-//        Assert.assertEquals(user.getAvatar(), "https://reqres.in/img/faces/2-image.jpg");
-//    }
-//
+    @Test
+    @Epic("Тесты с Users")
+    @Feature("Получение одного User")
+    @Story("Положительные")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Получаем данные одного пользователя с id 2")
+    @Owner("SergeyK")
+    @Issue("Задача-2")
+    @Link(value = "Яндекс", url = "https://ya.ru")
+    public void testSingleUser() {
+
+        UserPojo user = given(requestSpec.pathParam("id", USER_ID), responseSpec)
+                .get("/api/users/{id}")
+                .then()
+                .statusCode(200)
+                .extract().body().jsonPath().getObject("data", UserPojo.class);
+
+        Assert.assertEquals(user.getId(), USER_ID);
+        Assert.assertEquals(user.getEmail(), "janet.weaver@reqres.in");
+        Assert.assertEquals(user.getFirst_name(), "Janet");
+        Assert.assertEquals(user.getLast_name(), "Weaver");
+        Assert.assertEquals(user.getAvatar(), "https://reqres.in/img/faces/2-image.jpg");
+    }
+
 //    @Test
 //    @Epic("Тесты с Users")
 //    @Feature("Получение одного User")
