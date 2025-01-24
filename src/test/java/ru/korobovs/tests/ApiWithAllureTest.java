@@ -80,26 +80,26 @@ public class ApiWithAllureTest extends BaseTest {
         Assert.assertEquals(user.getLast_name(), "Weaver");
         Assert.assertEquals(user.getAvatar(), "https://reqres.in/img/faces/2-image.jpg");
     }
-//
-//    @Test
-//    @Epic("Тесты с Users")
-//    @Feature("Получение одного User")
-//    @Story("Отрицательный")
-//    @Severity(SeverityLevel.NORMAL)
-//    @Description("Попытка получить данные несуществующего пользователя")
-//    @Owner("SergeyK")
-//    @Issue("Задача-3")
-//    @Link(value = "Яндекс", url = "https://ya.ru")
-//    public void testSingleUserNotFound() {
-//
-//        RestAssured.given(requestSpec.pathParam("id", NOT_USER_ID), responseSpec)
-//                .get("/api/users/{id}")
-//                .then()
-//                .statusCode(404)
-//                .body(equalTo("{}"))
-//                .extract().response();
-//    }
-//
+
+    @Test
+    @Epic("Тесты с Users")
+    @Feature("Получение одного User")
+    @Story("Отрицательный")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Попытка получить данные несуществующего пользователя")
+    @Owner("SergeyK")
+    @Issue("Задача-3")
+    @Link(value = "Яндекс", url = "https://ya.ru")
+    public void testSingleUserNotFound() {
+
+        RestAssured.given(requestSpec.pathParam("id", NOT_USER_ID), responseSpec)
+                .get("/api/users/{id}")
+                .then()
+                .statusCode(404)
+                .body(equalTo("{}"))
+                .extract().response();
+    }
+
 //    @Test
 //    @Epic("Тесты с Resources")
 //    @Feature("Получение List Resource")
