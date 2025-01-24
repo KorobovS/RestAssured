@@ -17,7 +17,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.lessThan;
 
 @Epic("API tests")
-@Ignore
 public class ApiTest {
 
     private static final String USER_RESOURCE = "fuchsia rose";
