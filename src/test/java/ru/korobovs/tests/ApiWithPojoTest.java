@@ -18,7 +18,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.lessThan;
 
 @Epic("API test with Pojo")
-@Ignore
 public class ApiWithPojoTest extends BaseTest {
 
     private static final int USER_ID = 2;
