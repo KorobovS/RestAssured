@@ -6,7 +6,6 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import ru.korobovs.base.Specifications;
 
@@ -16,7 +15,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.lessThan;
 
-@Ignore
 @Epic("API tests")
 public class ApiTest {
 
