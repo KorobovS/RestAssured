@@ -1,13 +1,12 @@
 package ru.korobovs.tests;
 
 import io.qameta.allure.Epic;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-import ru.korobovs.base.BaseTest;
 import ru.korobovs.base.Specifications;
 
 import java.util.*;
@@ -29,6 +28,7 @@ public class ApiTest {
         specifications.installSpecifications();
 
         Response response = given()
+                .filter(new AllureRestAssured())
                 .get("/api/users?page=2")
                 .then()
                 .statusCode(200)
@@ -56,6 +56,7 @@ public class ApiTest {
         specifications.installSpecifications();
 
         RestAssured.given()
+                .filter(new AllureRestAssured())
                 .get("/api/users/2")
                 .then()
                 .statusCode(200)
@@ -69,6 +70,7 @@ public class ApiTest {
         specifications.installSpecifications();
 
         RestAssured.given()
+                .filter(new AllureRestAssured())
                 .get("/api/users/23")
                 .then()
                 .statusCode(404)
@@ -82,6 +84,7 @@ public class ApiTest {
         specifications.installSpecifications();
 
         Response response = given()
+                .filter(new AllureRestAssured())
                 .get("/api/unknown")
                 .then().log().all()
                 .statusCode(200)
@@ -96,6 +99,7 @@ public class ApiTest {
         specifications.installSpecifications();
 
         RestAssured.given()
+                .filter(new AllureRestAssured())
                 .get("/api/unknown/2")
                 .then()
                 .statusCode(200)
@@ -109,6 +113,7 @@ public class ApiTest {
         specifications.installSpecifications();
 
         RestAssured.given()
+                .filter(new AllureRestAssured())
                 .get("/api/unknown/23")
                 .then()
                 .statusCode(404)
@@ -129,6 +134,7 @@ public class ApiTest {
                 """;
 
         RestAssured.given()
+                .filter(new AllureRestAssured())
                 .body(body)
                 .post("/api/users")
                 .then()
@@ -150,6 +156,7 @@ public class ApiTest {
                 """;
 
         RestAssured.given()
+                .filter(new AllureRestAssured())
                 .body(body)
                 .put("/api/users/2")
                 .then()
@@ -171,6 +178,7 @@ public class ApiTest {
                 """;
 
         RestAssured.given()
+                .filter(new AllureRestAssured())
                 .body(body)
                 .patch("/api/users/2")
                 .then()
@@ -185,6 +193,7 @@ public class ApiTest {
         specifications.installSpecifications();
 
         RestAssured.given()
+                .filter(new AllureRestAssured())
                 .delete("/api/users/2")
                 .then()
                 .statusCode(204)
@@ -205,6 +214,7 @@ public class ApiTest {
                 """;
 
         RestAssured.given()
+                .filter(new AllureRestAssured())
                 .body(body)
                 .post("/api/register")
                 .then()
@@ -225,6 +235,7 @@ public class ApiTest {
                 """;
 
         RestAssured.given()
+                .filter(new AllureRestAssured())
                 .body(body)
                 .post("/api/register")
                 .then()
@@ -245,6 +256,7 @@ public class ApiTest {
                 """;
 
         RestAssured.given()
+                .filter(new AllureRestAssured())
                 .body(body)
                 .post("/api/login")
                 .then()
@@ -264,6 +276,7 @@ public class ApiTest {
                 """;
 
         RestAssured.given()
+                .filter(new AllureRestAssured())
                 .body(body)
                 .post("/api/login")
                 .then().log().all()
@@ -277,6 +290,7 @@ public class ApiTest {
         specifications.installSpecifications();
 
         RestAssured.given()
+                .filter(new AllureRestAssured())
                 .get("/api/users?delay=3")
                 .then()
                 .statusCode(200)
