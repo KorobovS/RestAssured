@@ -49,9 +49,9 @@ jobs:
         uses: peaceiris/actions-gh-pages@v2
         if: always()
         env:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-history
 
 #      - name: Load test report history
 #        uses: actions/checkout@v3
