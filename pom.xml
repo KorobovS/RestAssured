@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <versionAssured>5.5.0</versionAssured>
         <versionJackson>2.18.2</versionJackson>
-        <allure.version>2.24.0</allure.version>
+        <allure.version>2.25.0</allure.version>
         <aspectj.version>1.9.20.1</aspectj.version>
     </properties>
 
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-rest-assured</artifactId>
-            <version>2.25.0</version>
+            <version>${allure.version}</version>
         </dependency>
     </dependencies>
 
