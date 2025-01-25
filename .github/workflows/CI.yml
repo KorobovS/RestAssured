@@ -46,6 +46,8 @@ jobs:
           keep_reports: 20
 
       - name: Publish Allure report
+        permissions:
+          contents: write
         uses: peaceiris/actions-gh-pages@v2
         if: always()
         env:
