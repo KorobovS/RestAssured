@@ -1,5 +1,6 @@
 package ru.korobovs.base;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -10,21 +11,22 @@ import io.restassured.specification.ResponseSpecification;
 
 public class Specifications {
 
-    public RequestSpecification setupRequest() {
+    public static RequestSpecification setupRequest() {
         return new RequestSpecBuilder()
-                .log(LogDetail.ALL)
+                .setBaseUri("https://reqres.in/api/")
                 .setContentType(ContentType.JSON)
-                .setBaseUri("https://reqres.in")
+                .addFilter(new AllureRestAssured())
+                .log(LogDetail.ALL)
                 .build();
     }
 
-    public ResponseSpecification setupResponse () {
+    public static ResponseSpecification setupResponse () {
         return new ResponseSpecBuilder()
                 .log(LogDetail.ALL)
                 .build();
     }
 
-    public void installSpecifications() {
+    public static void installSpecifications() {
         RestAssured.requestSpecification = setupRequest();
         RestAssured.responseSpecification = setupResponse();
     }

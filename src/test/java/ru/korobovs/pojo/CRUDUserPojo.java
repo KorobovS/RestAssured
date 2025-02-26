@@ -3,12 +3,17 @@ package ru.korobovs.pojo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserBodyPojo {
+public class CRUDUserPojo {
 
     private String name;
     private String job;
+    private String id;
+    private String createdAt;
 
-    public UserBodyPojo(String name, String job) {
+    public CRUDUserPojo() {
+    }
+
+    public CRUDUserPojo(String name, String job) {
         this.name = name;
         this.job = job;
     }
