@@ -16,6 +16,7 @@
         <versionJackson>2.18.2</versionJackson>
         <allure.version>2.25.0</allure.version>
         <aspectj.version>1.9.20.1</aspectj.version>
+        <suite>testng</suite>
     </properties>
 
     <dependencies>
@@ -85,6 +86,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>
                 <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/${suite}.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>

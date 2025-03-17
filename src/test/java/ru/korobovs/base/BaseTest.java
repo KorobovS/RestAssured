@@ -1,13 +1,12 @@
 package ru.korobovs.base;
 
-import io.restassured.RestAssured;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
+import ru.korobovs.client.ApiClient;
 
 public abstract class BaseTest {
 
-    @BeforeTest
+    @BeforeMethod
     public void setUp() {
-        Specifications.installSpecifications();
-//        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+        ApiClient.getInstance().getRequestSpec();
     }
 }

@@ -1,11 +1,11 @@
-package ru.korobovs.steps;
+package ru.korobovs.controllers;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.korobovs.base.EndPoint;
-import ru.korobovs.utils.ApiClient;
+import ru.korobovs.client.ApiClient;
 
-public class CRUDUserSteps {
+public class CRUDUserController {
     private ApiClient apiClient = ApiClient.getInstance();
 
     @Step("Create user with name: {name} and job: {job}")

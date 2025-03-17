@@ -25,9 +25,4 @@ public class Specifications {
                 .log(LogDetail.ALL)
                 .build();
     }
-
-    public static void installSpecifications() {
-        RestAssured.requestSpecification = setupRequest();
-        RestAssured.responseSpecification = setupResponse();
-    }
 }

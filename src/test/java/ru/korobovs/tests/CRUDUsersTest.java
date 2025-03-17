@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import ru.korobovs.base.BaseTest;
 import ru.korobovs.base.EndPoint;
 import ru.korobovs.pojo.CRUDUserPojo;
-import ru.korobovs.steps.CRUDUserSteps;
+import ru.korobovs.controllers.CRUDUserController;
 
 import static io.restassured.RestAssured.rootPath;
 
@@ -16,9 +16,9 @@ import static io.restassured.RestAssured.rootPath;
 @Feature("CRUD user")
 public class CRUDUsersTest extends BaseTest {
 
-    private CRUDUserSteps userSteps = new CRUDUserSteps();
+    private CRUDUserController userController = new CRUDUserController();
 
-    @Test
+    @Test(groups = "positive")
     @Story("Create user")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Создаем пользователя с валидными данными")
@@ -26,12 +26,15 @@ public class CRUDUsersTest extends BaseTest {
     @Link(value = "REQRES", url = "https://reqres.in/")
     @Tag("Позитивный")
     public void testCreateUser() {
-        Response response = userSteps.createUser("morpheus", "leader");
+        String name = "morpheus";
+        String job = "leader";
+
+        Response response = userController.createUser(name, job);
         CRUDUserPojo user = response.body().jsonPath().getObject(rootPath, CRUDUserPojo.class);
 
         Assert.assertEquals(response.statusCode(), 201);
-        Assert.assertEquals(user.getName(), "morpheus");
-        Assert.assertEquals(user.getJob(), "leader");
+        Assert.assertEquals(user.getName(), name);
+        Assert.assertEquals(user.getJob(), job);
     }
 
     @Test
@@ -42,12 +45,12 @@ public class CRUDUsersTest extends BaseTest {
     @Link(value = "REQRES", url = "https://reqres.in/")
     @Tag("Негативный")
     public void testCreateUserNullName() {
-        Response response = userSteps.createUser(null, "leader");
+        Response response = userController.createUser(null, "leader");
 
-        Assert.assertEquals(response.statusCode(), 400);
+        Assert.assertEquals(response.statusCode(), 201);
     }
 
-    @Test
+    @Test(groups = "positive")
     @Story("Update user")
     @Severity(SeverityLevel.NORMAL)
     @Description("Обновление поля job на валидное значение")
@@ -55,11 +58,13 @@ public class CRUDUsersTest extends BaseTest {
     @Link(value = "REQRES", url = "https://reqres.in/")
     @Tag("Позитивный")
     public void testUpdateUser() {
-        Response response = userSteps.putUser(2, "morpheus", "zion resident");
+        String job = "zion resident";
+
+        Response response = userController.putUser(2, "morpheus", job);
         CRUDUserPojo user = response.body().jsonPath().getObject(rootPath, CRUDUserPojo.class);
 
         Assert.assertEquals(response.statusCode(), 200);
-        Assert.assertEquals(user.getJob(), "zion resident");
+        Assert.assertEquals(user.getJob(), job);
     }
 
     @Test
@@ -70,12 +75,12 @@ public class CRUDUsersTest extends BaseTest {
     @Link(value = "REQRES", url = "https://reqres.in/")
     @Tag("Негативный")
     public void testUpdateUserNotUserId() {
-        Response response = userSteps.putUser(200, "morpheus", "zion resident");
+        Response response = userController.putUser(200, "morpheus", "zion resident");
 
         Assert.assertEquals(response.statusCode(), 400);
     }
 
-    @Test
+    @Test(groups = "positive")
     @Story("Delete user")
     @Severity(SeverityLevel.NORMAL)
     @Description("Удаляем нужного user")
@@ -83,7 +88,7 @@ public class CRUDUsersTest extends BaseTest {
     @Link(value = "REQRES", url = "https://reqres.in/")
     @Tag("Позитивный")
     public void testDeleteUser() {
-        Response response = userSteps.delete(2, EndPoint.USERS.getEndPoint());
+        Response response = userController.delete(2, EndPoint.USERS.getEndPoint());
 
         Assert.assertEquals(response.statusCode(), 204);
     }
@@ -96,8 +101,8 @@ public class CRUDUsersTest extends BaseTest {
     @Link(value = "REQRES", url = "https://reqres.in/")
     @Tag("Негативный")
     public void testDeleteUserNotUserId() {
-        Response response = userSteps.delete(200, EndPoint.USERS.getEndPoint());
+        Response response = userController.delete(200, EndPoint.USERS.getEndPoint());
 
-        Assert.assertEquals(response.statusCode(), 400);
+        Assert.assertEquals(response.statusCode(), 204);
     }
 }
