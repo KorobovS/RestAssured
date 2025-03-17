@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All test">
-    <test name="Вторая ступень">
+<suite name="All test" parallel="tests" thread-count="3">
+    <test name="Tests with xml">
         <classes>
-            <class name="ru.korobovs.tests.RegisterTest" ></class>
-            <class name="ru.korobovs.tests.LoginTest" ></class>
-            <class name="ru.korobovs.tests.CRUDUsersTest" ></class>
+            <class name="ru.korobovs.tests.RegisterTest"/>
+            <class name="ru.korobovs.tests.LoginTest"/>
+            <class name="ru.korobovs.tests.CRUDUsersTest"/>
         </classes>
     </test>
 </suite>

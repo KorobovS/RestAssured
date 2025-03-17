@@ -15,3 +15,4 @@
 ### - Log4J2
 ## 7. Добавил возможность запускать тестовые наборы
 ### - Файл xml
+## Стек и технологии: Java, TestNG, Maven, RestAssured, Allure, Log4j, CI.
