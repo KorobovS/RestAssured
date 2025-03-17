@@ -1,0 +1,6 @@
+"BROKEN","EPIC","FAILED","FEATURE","PASSED","SKIPPED","STORY","UNKNOWN"
+"0","Reqres API Tests","0","Register","2","0","Register","0"
+"0","Reqres API Tests","0","Login","2","0","Login","0"
+"0","Reqres API Tests","0","CRUD user","2","0","Delete user","0"
+"0","Reqres API Tests","1","CRUD user","1","0","Update user","0"
+"0","Reqres API Tests","0","CRUD user","2","0","Create user","0"
