@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All test">
+    <test name="Вторая ступень">
+        <classes>
+            <class name="ru.korobovs.tests.RegisterTest" ></class>
+            <class name="ru.korobovs.tests.LoginTest" ></class>
+            <class name="ru.korobovs.tests.CRUDUsersTest" ></class>
+        </classes>
+    </test>
+</suite>

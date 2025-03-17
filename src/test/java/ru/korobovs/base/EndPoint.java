@@ -1,7 +1,9 @@
 package ru.korobovs.base;
 
 public enum EndPoint {
-    USERS("users");
+    USERS("users"),
+    REGISTER("register"),
+    LOGIN("login");
 
     private String endPoint;
 

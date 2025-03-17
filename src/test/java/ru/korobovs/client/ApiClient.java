@@ -1,4 +1,4 @@
-package ru.korobovs.utils;
+package ru.korobovs.client;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -18,6 +18,8 @@ public class ApiClient {
 
         requestSpecification = RestAssured.given()
                 .spec(Specifications.setupRequest());
+
+        RestAssured.responseSpecification = Specifications.setupResponse();
     }
 
     public static ApiClient getInstance() {
@@ -29,6 +31,14 @@ public class ApiClient {
         }
 
         return instance;
+    }
+
+    public void getRequestSpec() {
+
+        requestSpecification = RestAssured.given()
+                .spec(Specifications.setupRequest());
+
+        RestAssured.responseSpecification = Specifications.setupResponse();
     }
 
     public Response post(String endPoint, String body) {
